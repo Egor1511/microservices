@@ -1,0 +1,24 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y \
+    libpq-dev gcc && apt-get clean
+
+COPY pyproject.toml poetry.lock* ./
+RUN pip install poetry && \
+    poetry config virtualenvs.create false && \
+    poetry install --no-dev
+
+COPY . .
+
+
+RUN poetry install --no-dev --no-root
+
+COPY . /app/
+
+RUN poetry run python manage.py collectstatic --noinput
+
+EXPOSE 8000
+
+ENTRYPOINT ["sh", "-c", "poetry run gunicorn task_manager.wsgi:application --bind 0.0.0.0:8000"]
