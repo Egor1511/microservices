@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "testservices"
+name = "micro_test"
 version = "0.1.0"
 description = ""
 authors = ["Egor Fironov <131647674+Egor1511@users.noreply.github.com>"]
