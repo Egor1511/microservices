@@ -13,10 +13,7 @@ RUN pip install poetry && \
 COPY . .
 
 
-RUN poetry install --no-dev --no-root
-
-COPY . /app/
-
+RUN poetry run python manage.py migrate
 RUN poetry run python manage.py collectstatic --noinput
 
 EXPOSE 8000
