@@ -1,14 +1,18 @@
+import os
 from pathlib import Path
 
+import environ
+
+env = environ.Env(DEBUG=(bool, False))
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+environ.Env.read_env(BASE_DIR / ".env")
 
+SECRET_KEY = env("DJANGO_SECRET_KEY")
 
-SECRET_KEY = 'django-insecure-)1^tktohh1+_vjky6*2ep=w7)vd7b!33v^!6@5q1&%&+i&z&*r'
+DEBUG = env("DJANGO_DEBUG")
 
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "localhost:8000"]
 
 
 INSTALLED_APPS = [
@@ -18,6 +22,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "drf_yasg",
+    'rest_framework',
+    'tasks',
 ]
 
 MIDDLEWARE = [
@@ -52,9 +59,13 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": 'django.db.backends.postgresql',
+        "NAME": env('POSTGRES_DB'),
+        "USER": env('POSTGRES_USER'),
+        "PASSWORD": env('POSTGRES_PASSWORD'),
+        "HOST": env('POSTGRES_HOST'),
+        "PORT": 5432,
     }
 }
 
@@ -84,6 +95,11 @@ USE_I18N = True
 USE_TZ = True
 
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

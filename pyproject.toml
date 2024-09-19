@@ -9,6 +9,53 @@ readme = "README.md"
 python = "^3.12"
 
 
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.8.0"
+mypy = "^1.11.2"
+black = "^24.8.0"
+isort = "^5.13.2"
+ruff = "^0.6.5"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.black]
+line-length = 120
+exclude = '''
+/(
+    .*/asgi.py
+  | .*/settings.py
+  | .*/wsgi.py
+  | .*/migrations/
+  | venv
+  | .venv
+)/
+'''
+
+[tool.isort]
+profile = "black"
+skip = ["asgi.py", "wsgi.py", "settings.py", "*/migrations", "venv", ".venv"]
+
+[tool.mypy]
+exclude = 'migrations|venv|tests|static|.venv'
+namespace_packages = true
+ignore_missing_imports = true
+strict = true
+
+
+[tool.ruff]
+exclude = [
+    "migrations",
+    "venv",
+    "static",
+    ".venv",
+    "tests",
+    "settings.py",
+    "manage.py",
+    "asgi.py",
+    "wsgi.py",
+    "templates"
+]
+line-length = 120

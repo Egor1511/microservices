@@ -104,7 +104,8 @@ venv.bak/
 
 # mkdocs documentation
 /site
-
+static/
+/static/
 # mypy
 .mypy_cache/
 .dmypy.json
@@ -114,3 +115,6 @@ dmypy.json
 static_backend.
 static_backend/
 media/
+.ruff_cache/
+/.pytest_cache/
+staticfiles/
