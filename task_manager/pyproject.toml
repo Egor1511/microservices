@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "task-manager"
+version = "0.1.0"
+description = ""
+authors = ["Egor Fironov <131647674+Egor1511@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.1.1"
+djangorestframework = "^3.15.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
